@@ -5,20 +5,24 @@ import toast from 'react-hot-toast'
 import useSWR from 'swr'
 import { useForm } from 'react-hook-form'
 import { IUserResponse } from '@/__generated__/UserResponse.types'
-import Link from 'next/link'
+import { ParsedUrlQuery } from 'querystring'
+import { LoadingState } from '@/ui/LoadingState'
+import { UserInfo } from '@/ui/UserInfo'
+
+export interface TReposQuery extends ParsedUrlQuery {
+  user: string
+}
 
 const Home: NextPage = () => {
-  const [searchUserName, setSearchUserName] = useState('AlvaroAquijeDiaz')
+  const [searchUserName, setSearchUserName] = useState('')
 
   const { register, handleSubmit } = useForm<{ name: string }>()
 
-  const { data, error, isValidating } = useSWR<IUserResponse>(
-    `https://api.github.com/users/${searchUserName}`
-  )
+  const { data, error } = useSWR<IUserResponse>(`https://api.github.com/users/${searchUserName}`)
 
   useEffect(() => {
     if (error) {
-      toast.error('Unexpected')
+      toast.error('Unexpected error :(')
     }
   }, [error])
 
@@ -34,37 +38,25 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className="font-extrabold text-2xl">Search for a user</h1>
-        <form onSubmit={onSubmit}>
-          <input
-            type="input"
-            placeholder="Name like `AlvaroAquijeDiaz`"
-            className="bg-bg-primary border border-neutral-500 rounded-md p-2 placeholder-neutral-400 
-          focus:bg-neutral-700 transition-colors duration-150 text-sm"
-            {...register('name', { required: true })}
-          />
-          <button type="submit"></button>
-        </form>
+      <main className="flex flex-col gap-14 justify-between">
+        <div className="flex items-center justify-between">
+          <h1 className="font-semibold text-xl text-neutral-200">Search for a user</h1>
+          <form onSubmit={onSubmit}>
+            <input
+              type="input"
+              placeholder="Name like `AlvaroAquijeDiaz`"
+              className="text-neutral-200 bg-bg-primary border border-neutral-500 rounded-md p-2 placeholder-neutral-400 
+            focus:bg-neutral-700 transition-colors duration-150 text-sm focus:outline-none focus:ring focus:ring-indigo-600"
+              {...register('name', { required: true })}
+            />
+            <button type="submit" />
+          </form>
+        </div>
 
-        {isValidating && <div>Loading...</div>}
+        {!data && <LoadingState />}
 
-        {data && (
-          <div>
-            <h1 className="font-semibold text-xl">{data.name}</h1>
-            <p>{data.bio}</p>
-            <Link
-              href={{
-                pathname: '/repos',
-                query: {
-                  user: data.login,
-                },
-              }}
-            >
-              <a>{data.repos_url}</a>
-            </Link>
-          </div>
-        )}
+        {/* This is intentional, since the Github Api retrieves a 2-key object for empty requests */}
+        {data && Object.keys(data).length > 2 && <UserInfo user={data} />}
       </main>
     </div>
   )

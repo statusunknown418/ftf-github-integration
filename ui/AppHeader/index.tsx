@@ -1,14 +1,31 @@
+import { ArrowLeftIcon, CodeIcon, HomeIcon } from '@heroicons/react/solid'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Route } from './Route'
 
 export const AppHeader: NextPage = () => {
-  const { route } = useRouter()
-  console.log(route)
+  const { route, back } = useRouter()
+
   return (
     <header>
-      <ul className="flex items-center justify-evenly gap-2 px-2 py-1 rounded-md bg-neutral-800">
-        <Route link="/" name="Home" />
+      <ul
+        className={`flex items-center ${
+          route !== '/' ? 'justify-between' : 'justify-center'
+        } gap-2 px-3 py-2 rounded-md bg-neutral-800`}
+      >
+        {route !== '/' && (
+          <Route
+            Icon={<ArrowLeftIcon className="w-5 h-5" />}
+            callback={back}
+            className="p-1 rounded-md hover:bg-neutral-600 transition-colors duration-150 flex-grow-0"
+          />
+        )}
+
+        <Route
+          className="p-1 hover:bg-neutral-600 rounded-md transition-colors duration-150"
+          link="https://github.com/AlvaroAquijeDiaz/ftf-github-integration"
+          Icon={<CodeIcon className="w-5 h-5" />}
+        />
       </ul>
     </header>
   )

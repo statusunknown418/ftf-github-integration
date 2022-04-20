@@ -11,7 +11,7 @@ const BaseLayout: NextPage<Props> = ({ children }) => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-6">
-        <main className="grid grid-cols-1 md:col-start-2 md:col-span-4 border min-h-screen">
+        <main className="grid grid-cols-1 md:col-start-2 md:col-span-4 min-h-screen">
           <div>
             <AppHeader />
           </div>

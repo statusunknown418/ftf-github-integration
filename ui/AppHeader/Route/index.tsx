@@ -1,25 +1,34 @@
 import { NextPage } from 'next'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-
+import Link, { LinkProps } from 'next/link'
+import { ParsedUrlQueryInput } from 'querystring'
+import { ReactNode } from 'react'
 interface Props {
-  name: string
-  link: string
+  Icon: ReactNode
+  link?: string
+  callback?: () => void
+  className?: string
+  text?: string
+  query?: ParsedUrlQueryInput
 }
 
-export const Route: NextPage<Props> = ({ name, link }) => {
-  const { route } = useRouter()
-  const isActive = route === link
-
+export const Route: NextPage<Props> = ({ Icon, link, callback, className, text, query }) => {
   return (
-    <Link href={link} passHref>
-      <li
-        className={`font-semibold rounded-md px-3 py-2 flex-grow flex justify-center ${
-          isActive ? 'bg-cyan-600' : 'bg-transparent hover:ring-1 ring-cyan-600'
-        } transition-all duration-150 cursor-pointer`}
-      >
-        {name}
-      </li>
-    </Link>
+    <div className={className} onClick={callback}>
+      {callback && <div>{Icon}</div>}
+      {link && (
+        <Link
+          href={{
+            pathname: link,
+            query,
+          }}
+          passHref
+        >
+          <div className={`flex items-center justify-center gap-2`}>
+            <span>{Icon}</span>
+            {text && <span>{text}</span>}
+          </div>
+        </Link>
+      )}
+    </div>
   )
 }

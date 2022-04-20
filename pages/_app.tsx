@@ -8,7 +8,16 @@ import { Toaster } from 'react-hot-toast'
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <SWRConfig value={{ fetcher }}>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          style: {
+            backgroundColor: '#222124',
+            color: '#ffffff',
+            borderRadius: '12px',
+            border: '1px solid gray',
+          },
+        }}
+      />
 
       <BaseLayout>
         <Component {...pageProps} />
