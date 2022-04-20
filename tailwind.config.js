@@ -5,7 +5,7 @@ module.exports = {
       colors: {
         'text-primary': '#ffffff',
         'bg-primary': '#18181b',
-        'app-primary': '#06b6d4',
+        'app-primary': '#6366f1',
       },
       fontFamily: {
         poppins: ['Poppins', 'system-ui'],
