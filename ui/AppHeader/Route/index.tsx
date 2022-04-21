@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import Link, { LinkProps } from 'next/link'
+import Link from 'next/link'
 import { ParsedUrlQueryInput } from 'querystring'
 import { ReactNode } from 'react'
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 export const Route: NextPage<Props> = ({ Icon, link, callback, className, text, query }) => {
   return (
-    <div className={className} onClick={callback}>
+    <div onClick={callback}>
       {callback && <div>{Icon}</div>}
       {link && (
         <Link
@@ -23,8 +23,8 @@ export const Route: NextPage<Props> = ({ Icon, link, callback, className, text, 
           }}
           passHref
         >
-          <div className={`flex items-center justify-center gap-2`}>
-            <span>{Icon}</span>
+          <div className={`flex items-center justify-center gap-2 ${className}`}>
+            {Icon}
             {text && <span>{text}</span>}
           </div>
         </Link>

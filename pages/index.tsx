@@ -8,6 +8,7 @@ import { IUserResponse } from '@/__generated__/UserResponse.types'
 import { ParsedUrlQuery } from 'querystring'
 import { LoadingState } from '@/ui/LoadingState'
 import { UserInfo } from '@/ui/UserInfo'
+import { EmptyState } from '@/ui/EmptyState'
 
 export interface TReposQuery extends ParsedUrlQuery {
   user: string
@@ -18,7 +19,7 @@ const Home: NextPage = () => {
 
   const { register, handleSubmit } = useForm<{ name: string }>()
 
-  const { data, error } = useSWR<IUserResponse>(`https://api.github.com/users/${searchUserName}`)
+  const { data, error } = useSWR<IUserResponse>(`/users/${searchUserName}`)
 
   useEffect(() => {
     if (error) {
@@ -40,7 +41,9 @@ const Home: NextPage = () => {
 
       <main className="flex flex-col gap-14 justify-between">
         <div className="flex items-center justify-between">
-          <h1 className="font-semibold text-xl text-neutral-200">Search for a user</h1>
+          <h1 className="font-semibold text-xl text-neutral-200 text-center flex-grow">
+            Search for a user
+          </h1>
           <form onSubmit={onSubmit}>
             <input
               type="input"
@@ -54,6 +57,10 @@ const Home: NextPage = () => {
         </div>
 
         {!data && <LoadingState />}
+
+        {data && Object.keys(data).some((key) => key.toLowerCase() === 'message') && (
+          <EmptyState text="No user found" />
+        )}
 
         {/* This is intentional, since the Github Api retrieves a 2-key object for empty requests */}
         {data && Object.keys(data).length > 2 && <UserInfo user={data} />}

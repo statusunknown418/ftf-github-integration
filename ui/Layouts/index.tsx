@@ -16,7 +16,7 @@ const BaseLayout: NextPage<Props> = ({ children }) => {
             <AppHeader />
           </div>
 
-          <div>{children}</div>
+          <div className="px-5">{children}</div>
 
           <div className="mt-auto">
             <AppFooter />

@@ -1,5 +1,5 @@
 const fetcher = async (url: string, payload?: Record<string, unknown>) => {
-  const data = await fetch(`${url}`, {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_API_URL}${url}`, {
     method: payload ? 'POST' : 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -27,16 +27,24 @@ export const UserInfo: NextPage<Props> = ({ user }) => {
 
       <section>
         <p className="text-neutral-200">{user.bio}</p>
-        <p>
-          <Link href={user.blog}>
-            <a className="text-blue-500 underline hover:text-blue-400">{user.blog}</a>
-          </Link>
+        <p>{user.company}</p>
+        <p className="flex gap-2 items-center">
+          <span>Contact:</span>
+          <span className="cursor-pointer text-blue-500 hover:text-blue-400">{user.email}</span>
         </p>
+
+        {user.blog && (
+          <p>
+            <Link href={user.blog}>
+              <a className="text-blue-500 underline hover:text-blue-400">{user.blog}</a>
+            </Link>
+          </p>
+        )}
       </section>
 
-      <section>
+      <section className="flex items-center justify-center">
         <Route
-          className="cursor-pointer"
+          className="cursor-pointer hover:bg-neutral-600 border border-neutral-500 rounded-md px-5 py-1"
           link="/repos"
           query={linkQuery}
           text="See Repos"
