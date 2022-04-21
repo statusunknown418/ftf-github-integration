@@ -50,7 +50,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="flex flex-col gap-14 justify-between">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between gap-2">
           <h1 className="font-semibold text-xl text-neutral-200 text-center flex-grow">
             Search for a user
           </h1>
