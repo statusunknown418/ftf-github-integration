@@ -1,34 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# What's this?
 
-## Getting Started
+This is a simple app that implements the Github Api and allows to search for any user -> get a repo from him/her -> and see a commit history (github.com like format).
 
-First, run the development server:
+_Developed by [me](https://github.com/AlvaroAquijeDiaz)_
+
+**Note: this project uses a github access token in order to process more than 1 request per minute**
+
+## Local setup
+
+1. Clone the repo.
+2. `cd` into it and:
 
 ```bash
-npm run dev
+$ pnpm i (recommended)
+
 # or
-yarn dev
+$ yarn i
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+_To install pnpm you can just do `brew install pnpm` or `volta install pnpm` (learn more about volta [here](https://volta.sh)) or `npm i -g pnpm`_
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+3. Create an `.env.local` at the top level of the project and fill it following this format:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+| key                      | value                                                                                                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| NEXT_PUBLIC_API_KEY      | An access token generated on GitHub, learn how to do it [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) |
+| NEXT_PUBLIC_BASE_API_URL | simply use `https://api.github.com`                                                                                                                                             |
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+4.  Finally:
 
-## Learn More
+```bash
+# To run locally
 
-To learn more about Next.js, take a look at the following resources:
+$ pnpm dev # if used pnpm (recommended)
+$ yarn dev # if you used yarn
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
