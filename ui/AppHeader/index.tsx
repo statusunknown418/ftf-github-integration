@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, CodeIcon, HomeIcon } from '@heroicons/react/solid'
+import { ArrowLeftIcon, CodeIcon } from '@heroicons/react/solid'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { Route } from './Route'
@@ -24,6 +24,7 @@ export const AppHeader: NextPage = () => {
         <Route
           className="p-1 hover:bg-neutral-600 rounded-md transition-colors duration-150"
           link="https://github.com/AlvaroAquijeDiaz/ftf-github-integration"
+          text="Github"
           Icon={<CodeIcon className="w-5 h-5" />}
         />
       </ul>

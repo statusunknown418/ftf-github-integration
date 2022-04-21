@@ -1,14 +1,14 @@
-import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import toast from 'react-hot-toast'
-import useSWR from 'swr'
-import { useForm } from 'react-hook-form'
-import { IUserResponse } from '@/__generated__/UserResponse.types'
-import { ParsedUrlQuery } from 'querystring'
+import { EmptyState } from '@/ui/EmptyState'
 import { LoadingState } from '@/ui/LoadingState'
 import { UserInfo } from '@/ui/UserInfo'
-import { EmptyState } from '@/ui/EmptyState'
+import { IUserResponse } from '@/__generated__/UserResponse.types'
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import { ParsedUrlQuery } from 'querystring'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import useSWR from 'swr'
 
 export interface TReposQuery extends ParsedUrlQuery {
   user: string
@@ -58,9 +58,11 @@ const Home: NextPage = () => {
 
         {!data && <LoadingState />}
 
-        {data && Object.keys(data).some((key) => key.toLowerCase() === 'message') && (
-          <EmptyState text="No user found" />
-        )}
+        {data &&
+          Object.keys(data).length > 2 &&
+          Object.keys(data).some((key) => key.toLowerCase() === 'message') && (
+            <EmptyState text="No user found" />
+          )}
 
         {/* This is intentional, since the Github Api retrieves a 2-key object for empty requests */}
         {data && Object.keys(data).length > 2 && <UserInfo user={data} />}
