@@ -1,6 +1,6 @@
-export type TReposResponse = SingleRepo[]
+export type TReposResponse = ISingleRepo[]
 
-export interface SingleRepo {
+export interface ISingleRepo {
   id: number
   node_id: string
   name: string
