@@ -47,7 +47,7 @@ const ReposPage: NextPage = () => {
         />
       </section>
 
-      <section className="h-[35rem] overflow-y-scroll border border-neutral-600 p-1 rounded-md">
+      <section className="h-[35rem] overflow-y-scroll border border-neutral-600 p-3 rounded-md">
         {data && data.length === 0 && <EmptyState text="No repos found" />}
 
         {!data && !error && (
