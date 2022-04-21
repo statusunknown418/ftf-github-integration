@@ -6,7 +6,7 @@ import RepoInfo from '@/ui/RepoInfo'
 import { TReposResponse } from '@/__generated__/ReposResponse.types'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import useSWR from 'swr'
 import { TReposQuery } from '.'
@@ -20,17 +20,35 @@ const ReposPage: NextPage = () => {
     `/users/${fromQuery.user}/repos`
   )
 
-  const isResponseValid = data && isTypeOf<TReposResponse>(data)
+  const [filteredRepos, setFilteredRepos] = useState<TReposResponse>([] as TReposResponse)
 
-  const onRefreshClick = () => {
-    mutate()
-  }
+  const [searchValue, setSearchValue] = useState('')
+
+  const isResponseValid = filteredRepos && isTypeOf<TReposResponse>(filteredRepos)
 
   useEffect(() => {
     if (error) {
       toast.error('Unexpected Error')
     }
-  }, [error])
+  }, [error, data])
+
+  useEffect(() => {
+    if (searchValue.length) {
+      const filtered = filteredRepos?.filter(
+        (repo) =>
+          repo.name.includes(searchValue) || repo.name.substring(0, -1).includes(searchValue)
+      )
+      setFilteredRepos(filtered)
+    }
+
+    if (searchValue.length === 0 && data) {
+      setFilteredRepos(data)
+    }
+  }, [searchValue, data])
+
+  const onRefreshClick = () => {
+    mutate()
+  }
 
   return (
     <div className="flex flex-col gap-8 justify-between px-5 py-2">
@@ -47,8 +65,16 @@ const ReposPage: NextPage = () => {
         />
       </section>
 
+      <input
+        className="text-neutral-200 bg-bg-primary border border-neutral-500 rounded-md p-2 placeholder-neutral-500 
+            focus:bg-neutral-700 transition-colors duration-150 text-sm focus:outline-none focus:ring focus:ring-indigo-600"
+        placeholder="Search for a repo ..."
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
+
       <section className="h-[35rem] overflow-y-scroll border border-neutral-600 p-3 rounded-md">
-        {data && data.length === 0 && <EmptyState text="No repos found" />}
+        {data && filteredRepos.length === 0 && <EmptyState text="No repos found" />}
 
         {!data && !error && (
           <div className="flex items-center justify-center min-h-full">
@@ -57,7 +83,7 @@ const ReposPage: NextPage = () => {
         )}
         <ul className="flex flex-col gap-1">
           {isResponseValid &&
-            data.map((repo) => (
+            filteredRepos.map((repo) => (
               <li key={repo.id}>
                 <RepoInfo repo={repo} />
               </li>

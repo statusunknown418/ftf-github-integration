@@ -17,6 +17,7 @@ const ActionButton: NextPage<Props> = ({ Icon, onClick, designation, text }) => 
       className={clsx(
         'px-4 py-2 text-sm font-medium transition-colors duration-150',
         'rounded-md focus:outline-none max-w-sm',
+        'flex items-center justify-between',
         designation === 'primary'
           ? [
               'text-indigo-900 bg-indigo-200 hover:bg-transparent border-2',
@@ -25,6 +26,7 @@ const ActionButton: NextPage<Props> = ({ Icon, onClick, designation, text }) => 
           : ['text-indigo-400 border-2 border-indigo-500 hover:bg-indigo-200 hover:text-indigo-900']
       )}
     >
+      {Icon && <span>{Icon}</span>}
       {text}
     </button>
   )
