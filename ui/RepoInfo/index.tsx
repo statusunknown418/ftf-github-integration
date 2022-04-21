@@ -1,5 +1,5 @@
 import { ISingleRepo } from '@/__generated__/ReposResponse.types'
-import { ChevronDoubleRightIcon, MapIcon, ViewListIcon } from '@heroicons/react/solid'
+import { ChevronDoubleRightIcon } from '@heroicons/react/solid'
 import { NextPage } from 'next'
 import { useState } from 'react'
 import CommitHistoryModal from '../CommitHistoryModal'
@@ -24,7 +24,7 @@ const RepoInfo: NextPage<Props> = ({ repo }) => {
         <ChevronDoubleRightIcon className="w-5 h-5 text-indigo-500" />
       </span>
       <div
-        className="list-disc text-neutral-500 hover:text-indigo-500 hover:underline hover:underline-offset-1"
+        className="list-disc text-neutral-500 hover:text-indigo-400 hover:underline hover:underline-offset-1"
         onClick={() => {
           setSelectedRepo(repo.name)
           setIsModalOpen((prev) => !prev)
