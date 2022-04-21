@@ -8,6 +8,8 @@ _Developed by [me](https://github.com/AlvaroAquijeDiaz)_
 
 ## Local setup
 
+The easiest way to look at the final product is going to this [production_deployment](https://ftf-github-integration.vercel.app)
+
 1. Clone the repo.
 2. `cd` into it and:
 
