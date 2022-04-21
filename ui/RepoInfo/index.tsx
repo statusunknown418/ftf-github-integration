@@ -19,7 +19,7 @@ const RepoInfo: NextPage<Props> = ({ repo }) => {
   }
 
   return (
-    <section className="flex items-center gap-5">
+    <section className="flex items-center justify-start gap-5">
       <span>
         <ChevronDoubleRightIcon className="w-5 h-5 text-indigo-500" />
       </span>
@@ -30,7 +30,9 @@ const RepoInfo: NextPage<Props> = ({ repo }) => {
           setIsModalOpen((prev) => !prev)
         }}
       >
-        <button>{repo.full_name}</button>
+        <button className="text-left text-ellipsis overflow-hidden md:text-base">
+          {repo.full_name}
+        </button>
       </div>
 
       {isModalOpen && selectedRepo && (

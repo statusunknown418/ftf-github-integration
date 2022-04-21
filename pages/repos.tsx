@@ -44,14 +44,14 @@ const ReposPage: NextPage = () => {
     if (searchValue.length === 0 && data) {
       setFilteredRepos(data)
     }
-  }, [searchValue, data])
+  }, [searchValue, data, filteredRepos])
 
   const onRefreshClick = () => {
     mutate()
   }
 
   return (
-    <div className="flex flex-col gap-8 justify-between px-5 py-2">
+    <div className="flex flex-col gap-3 sm:gap-8 justify-between px-5 py-2">
       <section className="flex gap-2 justify-between items-center">
         <div className="flex flex-col gap-1">
           <h2 className="font-semibold text-xl">Click on any repo to see the commit history</h2>
@@ -81,7 +81,7 @@ const ReposPage: NextPage = () => {
             <LoadingState />
           </div>
         )}
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-1 md:gap-3">
           {isResponseValid &&
             filteredRepos.map((repo) => (
               <li key={repo.id}>
